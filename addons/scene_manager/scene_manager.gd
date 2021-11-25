@@ -18,19 +18,27 @@ var utils = Utils.new()
 
 
 func change_scene(scene_name: String) -> Node:
+	var next_scene = utils.load_scene_instance(scene_name, main_scenes_dir)
+	if next_scene:
+		add_child(next_scene)
+		
+		if current_scene:
+			transfer_data_between_scenes(current_scene, next_scene)
+		
+		next_scene.connect("scene_loaded", self, "_on_scene_loaded")
+		next_scene.load_scene(scene_name)
+		
 	if current_scene:
 		current_scene.connect("scene_unloaded", self, "_on_scene_unloaded")
 		current_scene.unload_scene()
-		
-	var next_scene = utils.load_scene_instance(scene_name, main_scenes_dir)
-	if next_scene:
-		next_scene.connect("scene_loaded", self, "_on_scene_loaded")
-		add_child(next_scene)
-		
-		next_scene.load_scene(scene_name)
-		current_scene = next_scene
+	
+	current_scene = next_scene
 	
 	return next_scene
+	
+	
+func transfer_data_between_scenes(old_scene: Node, new_scene: Node) -> void:
+	new_scene.load_level_parameters(old_scene.level_parameters)
 	
 	
 func _on_scene_loaded(scene):
@@ -46,9 +54,7 @@ func _on_scene_unloaded(scene):
 class Utils extends Resource:
 	const SCENETYPE: Array = ['tscn.converted.scn', 'scn', 'tscn']
 	
-	var auto_id: int = 0
-	
-	func load_scene_instance(name: String, dir: String) -> Control:
+	func load_scene_instance(name: String, dir: String) -> Node:
 	    var file = File.new()
 	    var path = ''
 	    var scene = null
