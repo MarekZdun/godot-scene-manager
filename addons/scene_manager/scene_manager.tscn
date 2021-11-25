@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/scene_manager/scene_manager.gd" type="Script" id=1]
+
+[node name="SceneManager" type="Node"]
+script = ExtResource( 1 )
+main_scenes_dir = "res://work/src/scenes/main_scenes"
