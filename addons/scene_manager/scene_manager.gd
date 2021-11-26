@@ -10,6 +10,7 @@ Usage:
 
 signal manager_scene_loaded(scene)
 signal manager_scene_unloaded(scene_name)
+signal update_progress(progress)
 
 
 export(String, DIR) var main_scenes_dir: String = "res://src/scenes/main_scenes/"
@@ -37,23 +38,20 @@ func _process(delta):
 		var err = loader.poll()
 		
 		if err == ERR_FILE_EOF:
+			emit_signal("update_progress", 1)
 			var resource = loader.get_resource()
 			loader = null
 			set_new_scene(resource)
 			break
 			
 		elif err == OK:
-			update_progress()
+			var progress = float(loader.get_stage()) / loader.get_stage_count()
+			emit_signal("update_progress", progress)
 			
 		else:
 			print_debug("error during loading")
 			loader = null
 			break
-			
-			
-func update_progress() -> void:
-	var progress = float(loader.get_stage()) / loader.get_stage_count()
-	emit_signal("update_progress", progress)
 
 
 func change_scene(scene_name: String) -> void:
