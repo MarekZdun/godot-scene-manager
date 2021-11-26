@@ -11,7 +11,15 @@ signal scene_unloaded(scene)
 
 
 var scene_name: String
-var level_parameters: Dictionary
+var level_parameters: Dictionary setget set_level_parameters, get_level_parameters
+
+
+func set_level_parameters(_level_parameters: Dictionary) -> void:
+	level_parameters = _level_parameters
+	
+	
+func get_level_parameters() -> Dictionary:
+	return level_parameters
 
 
 func load_scene(_scene_name: String) -> void:
@@ -33,7 +41,3 @@ func _load_scene() -> void:
 	
 func _unload_scene() -> void:
 	assert(false, "Override activate in subtypes")
-	
-	
-func load_level_parameters(_level_parameters: Dictionary) -> void:
-	level_parameters = _level_parameters

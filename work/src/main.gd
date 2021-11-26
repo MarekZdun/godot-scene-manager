@@ -10,18 +10,19 @@ func _ready():
 	
 	yield(get_tree().create_timer(1), "timeout")
 	
-	current_scene = SceneManager.change_scene("scene_1")
+	SceneManager.change_scene("scene_1")
 	
 	yield(get_tree().create_timer(2), "timeout")
 	
-	current_scene = SceneManager.change_scene("scene_2")
+	SceneManager.change_scene("scene_2")
 	
 	yield(get_tree().create_timer(2), "timeout")
 	
-	current_scene = SceneManager.change_scene("")
+	SceneManager.change_scene("")
 
 
 func _on_scene_ready(scene: Node):
+	current_scene = scene
 	print("scene " + scene.scene_name + " is ready")
 	
 	
