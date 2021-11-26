@@ -1,8 +1,15 @@
 extends CanvasLayer
 """
 Main scene
-Usage:
 
+Usage:
+-right click on main_scene.tscn file in File System and choose New Inherited Scene
+
+-right click on MainScene node (top one) and choose Extend Script to add additional funcionality to your scene
+
+-add functionality in _load_scene() and _unload_scene() in inherited scene
+
+-if you want to send data from old scene to new one, set level_parameters dictionary in inherited scene of old scene
 """
 
 

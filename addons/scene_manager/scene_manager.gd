@@ -4,7 +4,20 @@ Manager whose purpose is to control scenes
 (c) Pioneer Games
 v 1.0
 Usage:
+-choose main scenes directory path in SceneManager Inspector
 
+-in order to know when sceen completed its loading/unloading, connect coresponding signals. Ex:
+	
+	SceneManager.connect("manager_scene_loaded", self, "_on_scene_ready")
+	SceneManager.connect("manager_scene_unloaded", self, "_on_scene_gone")
+	
+-if you want to be informed about state of background loading, connect signal update_progress. Ex:
+	
+	SceneManager.connect("update_progress", loading_screen, "_on_progress_changed")
+	
+-to change sceen, call SceneManager.change_scene(scene_name: String) Ex:
+	
+	SceneManager.change_scene("scene_1")
 """
 
 
