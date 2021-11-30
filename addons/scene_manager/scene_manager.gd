@@ -3,6 +3,7 @@ extends Node
 Manager whose purpose is to control scenes
 (c) Pioneer Games
 v 1.0
+
 Usage:
 -choose main scenes directory path in SceneManager Inspector
 
