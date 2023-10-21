@@ -1,3 +1,4 @@
+class_name ProxyScene
 extends CanvasLayer
 """
 Proxy scene

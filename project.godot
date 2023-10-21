@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "CanvasLayer",
+"class": "ProxyScene",
+"language": "GDScript",
+"path": "res://addons/scene_manager/proxy_scene.gd"
+} ]
+_global_script_class_icons={
+"ProxyScene": ""
+}
+
 [application]
 
 config/name="Scene Manager"
