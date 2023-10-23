@@ -16,12 +16,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/CenterContainer" index="0"]
-margin_left = 486.0
-margin_top = 293.0
-margin_right = 537.0
-margin_bottom = 307.0
+offset_left = 486.0
+offset_top = 293.0
+offset_right = 537.0
+offset_bottom = 307.0
 
 [node name="Label" type="Label" parent="ColorRect/CenterContainer/VBoxContainer" index="0"]
-margin_right = 51.0
-margin_bottom = 14.0
+offset_right = 51.0
+offset_bottom = 14.0
 text = "SCENE 2"

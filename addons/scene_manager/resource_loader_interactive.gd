@@ -26,9 +26,9 @@ func _process(delta):
 		wait_frames -= 1
 		return
 		
-	var t = OS.get_ticks_msec()
+	var t = Time.get_ticks_msec()
 	
-	while OS.get_ticks_msec() < t + time_max:
+	while Time.get_ticks_msec() < t + time_max:
 		var err = loader.poll()
 		
 		OS.delay_msec(SIMULATED_DELAY_MS)
@@ -51,6 +51,6 @@ func _process(delta):
 		
 	
 func load_scene(filepath) -> void:
-	loader = ResourceLoader.load_interactive(filepath)
+	loader = ResourceLoader.load_threaded_request(filepath)
 	set_process(true)
 	wait_frames = 1

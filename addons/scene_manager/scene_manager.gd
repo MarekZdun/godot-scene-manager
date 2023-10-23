@@ -12,16 +12,16 @@ Usage:
 
 -in order to know wheter scene finished loading/unloading, connect coresponding signals. Ex:
 	
-	SceneManager.connect("manager_scene_loaded", self, "_on_scene_ready")
-	SceneManager.connect("manager_scene_unloaded", self, "_on_scene_gone")
+	SceneManager.connect("manager_scene_loaded", Callable(self, "_on_scene_ready"))
+	SceneManager.connect("manager_scene_unloaded", Callable(self, "_on_scene_gone"))
 	
 -if you want to be informed about state of background loading, connect signal update_progress. Ex:
 	
-	SceneManager.connect("update_progress", loading_screen, "_on_progress_changed")
+	SceneManager.connect("update_progress", Callable(loading_screen, "_on_progress_changed"))
 	
--to change scene, call SceneManager.change_scene(scene_filepath: String, params: Dictionary) Ex:
+-to change scene, call SceneManager.change_scene_to_file(scene_filepath: String, params: Dictionary) Ex:
 	
-	SceneManager.change_scene("res://src/scenes/main_scenes/scene_1.tscn")
+	SceneManager.change_scene_to_file("res://src/scenes/main_scenes/scene_1.tscn")
 """
 
 
@@ -30,58 +30,58 @@ signal manager_scene_unloaded(scene_id)
 signal scene_transitioning(scene_filepath)
 signal main_scene_loaded()
 
-export(String, FILE) var main_scene_filepath: String = "res://src/main.tscn"
+@export var main_scene_filepath: String = "res://src/main.tscn" # (String, FILE)
 
 var current_scene: Node = null
 var utils: Utils = Utils.new()
 var next_scene_id_cashe: String
 var scene_parameters_cache: Dictionary
 
-onready var main: Node = get_node_or_null("/root/Main")
-onready var active_scene_container: Node = get_node_or_null("/root/Main/ActiveSceneContainer")
-onready var resource_loader_interactive: Node = get_node("ResourceLoaderInteractive")
-onready var resource_loader_multithread: Node = get_node("ResourceLoaderMultithread")
+@onready var main: Node = get_node_or_null("/root/Main")
+@onready var active_scene_container: Node = get_node_or_null("/root/Main/ActiveSceneContainer")
+@onready var resource_loader_interactive: Node = get_node("ResourceLoaderInteractive")
+@onready var resource_loader_multithread: Node = get_node("ResourceLoaderMultithread")
 
 
 func _ready():
 	if not main:
 		call_deferred("_force_main_scene_load")
-		yield(self, "main_scene_loaded")
+		await self.main_scene_loaded
 	
 	if active_scene_container.get_child_count() > 0:
 		current_scene = active_scene_container.get_child(0) 
 
 
-func change_scene(scene_filepath: String, params: Dictionary = {}) -> void:
+func change_scene_to_file(scene_filepath: String, params: Dictionary = {}) -> void:
 	emit_signal("scene_transitioning", scene_filepath)
 	
 	if current_scene:
-		current_scene.connect("scene_unloaded", self, "_on_scene_unloaded", [], CONNECT_ONESHOT)
+		current_scene.connect("scene_unloaded", Callable(self, "_on_scene_unloaded").bind(), CONNECT_ONE_SHOT)
 		current_scene.unload_scene()
 		if current_scene.is_inside_tree():
-			yield(current_scene, "tree_exited")
+			await current_scene.tree_exited
 		current_scene = null
 	
-	if not scene_filepath.empty() and _is_scene_filepath_valid(scene_filepath):
+	if not scene_filepath.is_empty() and _is_scene_filepath_valid(scene_filepath):
 		next_scene_id_cashe = scene_filepath
 		scene_parameters_cache = params
 		
 		if OS.has_feature("HTML5"):
-			resource_loader_interactive.connect("resource_loaded", self, "_on_resource_loaded", [], CONNECT_ONESHOT)
+			resource_loader_interactive.connect("resource_loaded", Callable(self, "_on_resource_loaded").bind(), CONNECT_ONE_SHOT)
 			resource_loader_interactive.load_scene(scene_filepath)
 		else:
-			resource_loader_multithread.connect("resource_loaded", self, "_on_resource_loaded", [], CONNECT_ONESHOT)
+			resource_loader_multithread.connect("resource_loaded", Callable(self, "_on_resource_loaded").bind(), CONNECT_ONE_SHOT)
 			resource_loader_multithread.load_scene(scene_filepath)
 	else:
 		print_debug("Scene file not found")
 	
 	
 func _set_new_scene(resource: PackedScene) -> void:
-	var next_scene = resource.instance()
+	var next_scene = resource.instantiate()
 	if next_scene:
 		active_scene_container.add_child(next_scene)
 		
-		next_scene.connect("scene_loaded", self, "_on_scene_loaded", [], CONNECT_ONESHOT)
+		next_scene.connect("scene_loaded", Callable(self, "_on_scene_loaded").bind(), CONNECT_ONE_SHOT)
 		next_scene.load_scene(next_scene_id_cashe, scene_parameters_cache)
 		
 		current_scene = next_scene
@@ -102,7 +102,7 @@ func _is_scene_filepath_valid(filepath: String) -> bool:
 func _force_main_scene_load():
 	var played_scene = get_tree().current_scene
 	var root = get_node("/root")
-	main = load(main_scene_filepath).instance()
+	main = load(main_scene_filepath).instantiate()
 	root.remove_child(played_scene)
 	root.add_child(main)
 	
@@ -112,7 +112,7 @@ func _force_main_scene_load():
 		if scene_in_container:
 			scene_in_container.queue_free()
 			if scene_in_container.is_inside_tree():
-				yield(scene_in_container, "tree_exited")
+				await scene_in_container.tree_exited
 		
 	active_scene_container.add_child(played_scene)
 	
@@ -150,7 +150,7 @@ class Utils extends Resource:
 	        filepath = '%s/%s.%s' % [p_dir, p_name, ext]
 
 	        if file.file_exists(filepath):
-	            scene = load(filepath).instance()
+	            scene = load(filepath).instantiate()
 	            break
 
 	    return scene

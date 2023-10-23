@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 
-onready var progress_bar = get_node("Root/CenterContainer/VBoxContainer/ProgressBar")
+@onready var progress_bar = get_node("Root/CenterContainer/VBoxContainer/ProgressBar")
 
 
 func update_progress_bar(progress: float) -> void:

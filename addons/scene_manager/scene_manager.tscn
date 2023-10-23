@@ -5,7 +5,7 @@
 [ext_resource path="res://addons/scene_manager/resource_loader_interactive.gd" type="Script" id=3]
 
 [node name="SceneManager" type="Node"]
-pause_mode = 2
+process_mode = 3
 script = ExtResource( 1 )
 main_scene_filepath = "res://work/src/main.tscn"
 

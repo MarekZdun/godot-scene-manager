@@ -16,7 +16,7 @@ signal scene_loaded(scene)
 signal scene_unloaded(scene)
 
 
-onready var id: String = filename
+@onready var id: String = filename
 
 
 func load_scene(_id: String, params: Dictionary) -> void:

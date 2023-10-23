@@ -16,13 +16,13 @@ func _ready():
 	
 	
 func load_scene(filepath) -> void:
-	var state = thread.start(self, "_thread_load", filepath)
+	var state = thread.start(Callable(self, "_thread_load").bind(filepath))
 	if state != OK:
 		print_debug("Error while starting thread: " + str(state))
 		
 		
 func _thread_load(filepath) -> void:
-	var loader = ResourceLoader.load_interactive(filepath)
+	var loader = ResourceLoader.load_threaded_request(filepath)
 	var resource = null
 	
 	while true:
