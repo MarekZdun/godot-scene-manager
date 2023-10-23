@@ -2,13 +2,12 @@ extends Node
 """
 Manager whose purpose is to control switching between scene levels
 (c) Pioneer Games
-v 1.1
+v 1.2
 
 Usage:
--in Inspector, choose main scene file path which will be used to load the main scene during
-	the testing of the scene launched using F6. The main scene will act as a switch
-	between levels. As a requiment, main scene must have Node child named 
-	ActiveSceneContainer
+-for variable main_scene_filepath, specify the filet path to the main scene file, which will be used 
+	to load the main scene during the testing of the scene launched using F6. The main scene will act 
+	as a switch between levels. As a requiment, main scene must have Node child named ActiveSceneContainer
 
 -in order to know wheter sceen finished loading/unloading, connect coresponding signals. Ex:
 	
@@ -31,7 +30,7 @@ signal scene_transitioning(scene_filepath)
 signal main_scene_loaded()
 
 
-export(String, FILE) var main_scene_file: String = "res://src/main.tscn"
+var main_scene_filepath: String = "res://src/main.tscn"
 var current_scene: Node = null
 var utils: Utils = Utils.new()
 var next_scene_id_cashe: String
@@ -62,7 +61,7 @@ func change_scene(scene_filepath: String, params: Dictionary = {}) -> void:
 			yield(current_scene, "tree_exited")
 		current_scene = null
 	
-	if not scene_filepath.empty() and is_scene_filepath_valid(scene_filepath):
+	if not scene_filepath.empty() and _is_scene_filepath_valid(scene_filepath):
 		next_scene_id_cashe = scene_filepath
 		scene_parameters_cache = params
 		
@@ -76,7 +75,7 @@ func change_scene(scene_filepath: String, params: Dictionary = {}) -> void:
 		print_debug("Scene file not found")
 	
 	
-func set_new_scene(resource: PackedScene) -> void:
+func _set_new_scene(resource: PackedScene) -> void:
 	var next_scene = resource.instance()
 	if next_scene:
 		active_scene_container.add_child(next_scene)
@@ -87,7 +86,7 @@ func set_new_scene(resource: PackedScene) -> void:
 		current_scene = next_scene
 		
 		
-func is_scene_filepath_valid(filepath: String) -> bool:
+func _is_scene_filepath_valid(filepath: String) -> bool:
 	var valid
 	var file = File.new()
 	
@@ -102,7 +101,7 @@ func is_scene_filepath_valid(filepath: String) -> bool:
 func _force_main_scene_load():
 	var played_scene = get_tree().current_scene
 	var root = get_node("/root")
-	main = load(main_scene_file).instance()
+	main = load(main_scene_filepath).instance()
 	root.remove_child(played_scene)
 	root.add_child(main)
 	
@@ -125,7 +124,7 @@ func _force_main_scene_load():
 	
 	
 func _on_resource_loaded(resource):
-	set_new_scene(resource)
+	_set_new_scene(resource)
 	
 	
 func _on_scene_loaded(scene):
