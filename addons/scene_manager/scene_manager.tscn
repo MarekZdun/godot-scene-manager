@@ -7,7 +7,7 @@
 [node name="SceneManager" type="Node"]
 pause_mode = 2
 script = ExtResource( 1 )
-main_scene_file = "res://work/src/main.tscn"
+main_scene_filepath = "res://work/src/main.tscn"
 
 [node name="ResourceLoaderInteractive" type="Node" parent="."]
 script = ExtResource( 3 )

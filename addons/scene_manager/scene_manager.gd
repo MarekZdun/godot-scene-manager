@@ -5,11 +5,12 @@ Manager whose purpose is to control switching between scene levels
 v 1.2
 
 Usage:
--for variable main_scene_filepath, specify the filet path to the main scene file, which will be used 
-	to load the main scene during the testing of the scene launched using F6. The main scene will act 
+-open the SceneManager scene and select the file path to the main scene file for 
+	the exported variable main_scene_filepath. This file path will be used to load the main scene 
+	during the testing of the scene launched using F6. The main scene will act 
 	as a switch between levels. As a requiment, main scene must have Node child named ActiveSceneContainer
 
--in order to know wheter sceen finished loading/unloading, connect coresponding signals. Ex:
+-in order to know wheter scene finished loading/unloading, connect coresponding signals. Ex:
 	
 	SceneManager.connect("manager_scene_loaded", self, "_on_scene_ready")
 	SceneManager.connect("manager_scene_unloaded", self, "_on_scene_gone")
@@ -29,8 +30,8 @@ signal manager_scene_unloaded(scene_id)
 signal scene_transitioning(scene_filepath)
 signal main_scene_loaded()
 
+export(String, FILE) var main_scene_filepath: String = "res://src/main.tscn"
 
-var main_scene_filepath: String = "res://src/main.tscn"
 var current_scene: Node = null
 var utils: Utils = Utils.new()
 var next_scene_id_cashe: String
