@@ -21,7 +21,7 @@ SceneManager="*res://addons/scene_manager/scene_manager.tscn"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/scenemanager/plugin.cfg")
+enabled=PackedStringArray("res://addons/scene_manager/plugin.cfg")
 
 [physics]
 
