@@ -28,6 +28,10 @@ config/icon="res://icon.png"
 
 SceneManager="*res://addons/scene_manager/scene_manager.tscn"
 
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/scene_manager/plugin.cfg" )
+
 [physics]
 
 common/enable_pause_aware_picking=true
