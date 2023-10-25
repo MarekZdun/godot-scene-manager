@@ -1,4 +1,4 @@
-# Scene Manager(Godot 3.5 version)
+# Scene Manager(Godot 4.1 version)
 
 A Scene Manager for [Godot Engine](https://godotengine.org/).
 
