@@ -1,6 +1,6 @@
 # Scene Manager(Godot 4.1 version)
 
-A Scene Manager for [Godot Engine](https://godotengine.org/).
+A Scene Manager for [Godot Engine](https://godotengine.org/).<br />
 Looking for a Godot 3.5 version? [See godot 3.5 branch](https://github.com/MarekZdun/godot-scene-manager/tree/3.5).
 
 ## 📄 Features
