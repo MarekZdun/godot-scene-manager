@@ -1,6 +1,7 @@
 # Scene Manager(Godot 4.1 version)
 
 A Scene Manager for [Godot Engine](https://godotengine.org/).
+Looking for a Godot 3.5 version? [See godot 3.5 branch](https://github.com/MarekZdun/godot-scene-manager/tree/3.5).
 
 ## 📄 Features
 A manager whose task is to change scenes using a separate thread to load the new scene.
