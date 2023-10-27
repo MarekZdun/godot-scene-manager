@@ -6,7 +6,7 @@ A Scene Manager for [Godot Engine](https://godotengine.org/).
 A manager whose task is to change scenes using a separate thread to load the new scene.
 
 ## 📄 Usage
-➡️open the SceneManager scene and select the file path to the main scene file for 
+➡️  open the SceneManager scene and select the file path to the main scene file for 
 	the exported variable main_scene_filepath. This file path will be used to load the main scene 
 	during the testing of the scene launched using F6. The main scene will act 
 	as a switch between levels. As a requirement, main scene must have Node child named ActiveSceneContainer
