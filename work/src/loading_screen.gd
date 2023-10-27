@@ -6,7 +6,6 @@ extends CanvasLayer
 
 func update_progress_bar(progress: float) -> void:
 	progress_bar.value = progress * 100
-	progress_bar.update()
 	
 	
 func reset_progress_bar() -> void:

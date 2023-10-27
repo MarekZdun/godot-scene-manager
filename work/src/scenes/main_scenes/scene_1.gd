@@ -1,5 +1,5 @@
 extends ProxyScene
 
 
-func start(params) -> void:
+func _start(params) -> void:
 	print(params)

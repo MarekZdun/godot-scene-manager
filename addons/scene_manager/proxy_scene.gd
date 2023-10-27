@@ -8,32 +8,33 @@ Usage:
 
 -right click on ProxyScene node (top one) and choose Extend Script to add additional funcionality to your scene
 
--add functionality in start() and end() functions in inherited scene
+-add functionality to _start() and _end() functions in inherited scene. These functions will be called 
+	when scene is loaded/unloaded respectively.
 """
 
 
 signal scene_loaded(scene)
 signal scene_unloaded(scene)
 
+@export var id: String = ""
 
-@onready var id: String = filename
 
-
-func load_scene(_id: String, params: Dictionary) -> void:
-	id = _id
+func load_scene(p_id: String, params: Dictionary) -> void:
+	if not p_id.is_empty():
+		id = p_id
 	
-	start(params)
-	emit_signal("scene_loaded", self)
+	_start(params)
+	scene_loaded.emit(self)
 	
 	
 func unload_scene() -> void:
-	end()
-	emit_signal("scene_unloaded", self)
+	_end()
+	scene_unloaded.emit(self)
 	
 	
-func start(params: Dictionary) -> void:
+func _start(params: Dictionary) -> void:
 	pass	#can override this
 	
 	
-func end() -> void:
+func _end() -> void:
 	pass	#can override this

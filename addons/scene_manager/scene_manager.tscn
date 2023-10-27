@@ -1,16 +1,8 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=2 format=3 uid="uid://cfnqfnsk30goy"]
 
 [ext_resource type="Script" path="res://addons/scene_manager/scene_manager.gd" id="1"]
-[ext_resource type="Script" path="res://addons/scene_manager/resource_loader_multithread.gd" id="2"]
-[ext_resource type="Script" path="res://addons/scene_manager/resource_loader_interactive.gd" id="3"]
 
 [node name="SceneManager" type="Node"]
 process_mode = 3
-script = ExtResource( 1 )
-main_scene_filepath = "res://work/src/main.tscn"
-
-[node name="ResourceLoaderInteractive" type="Node" parent="."]
-script = ExtResource( 3 )
-
-[node name="ResourceLoaderMultithread" type="Node" parent="."]
-script = ExtResource( 2 )
+script = ExtResource("1")
+_main_scene_filepath = "res://work/src/main.tscn"

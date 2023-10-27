@@ -1,7 +1,7 @@
 extends Node
 
 
-var current_scene: Node = null
+var current_scene: Node
 var loading_screen: Node = preload("res://work/src/loading_screen.tscn").instantiate()
 
 @onready var loading_screen_root: Control = loading_screen.get_child(0)
@@ -12,26 +12,24 @@ func _init():
 	add_child(loading_screen)
 
 
-func _ready():	
-	SceneManager.connect("manager_scene_loaded", Callable(self, "_on_scene_ready"))
-	SceneManager.connect("manager_scene_unloaded", Callable(self, "_on_scene_gone"))
-	
-	SceneManager.get_node("ResourceLoaderInteractive").connect("update_progress", Callable(loading_screen, "_on_progress_changed"))
-	SceneManager.get_node("ResourceLoaderMultithread").connect("update_progress", Callable(loading_screen, "_on_progress_changed"))
+func _ready():
+	SceneManager.manager_scene_loaded.connect(_on_scene_ready)
+	SceneManager.manager_scene_unloaded.connect(_on_scene_gone)
+	SceneManager.update_progress.connect(loading_screen._on_progress_changed)
 
 	await get_tree().create_timer(1).timeout
 
-	SceneManager.change_scene_to_file("res://work/src/scenes/main_scenes/scene_1.tscn")
+	SceneManager.change_scene("res://work/src/scenes/main_scenes/scene_1.tscn", "my_scene_1", {"difficulty": "easy"})
 
 	await get_tree().create_timer(2).timeout
 
 	loading_screen_root.show()
-	SceneManager.change_scene_to_file("res://work/src/scenes/main_scenes/scene_2.tscn")
+	SceneManager.change_scene("res://work/src/scenes/main_scenes/scene_2.tscn", "my_scene_2", {"difficulty": "hard"})
 
 	await get_tree().create_timer(2).timeout
 
 #	loading_screen_root.show()
-	SceneManager.change_scene_to_file("")
+	SceneManager.change_scene("")
 
 
 func _on_scene_ready(scene: Node):
