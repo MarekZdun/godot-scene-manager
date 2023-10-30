@@ -33,7 +33,6 @@ signal main_scene_loaded()
 export(String, FILE) var main_scene_filepath: String = "res://src/main.tscn"
 
 var current_scene: Node = null
-var utils: Utils = Utils.new()
 var next_scene_id_cashe: String
 var scene_parameters_cache: Dictionary
 
@@ -77,7 +76,7 @@ func change_scene(scene_filepath: String, params: Dictionary = {}) -> void:
 	
 	
 func _set_new_scene(resource: PackedScene) -> void:
-	var next_scene = resource.instance()
+	var next_scene := resource.instance()
 	if next_scene:
 		active_scene_container.add_child(next_scene)
 		
@@ -88,27 +87,25 @@ func _set_new_scene(resource: PackedScene) -> void:
 		
 		
 func _is_scene_filepath_valid(filepath: String) -> bool:
-	var valid
-	var file = File.new()
+	var valid := false
+	var file := File.new()
 	
 	if file.file_exists(filepath):
 		valid = true
-	else:
-		valid = false
 		
 	return valid
 	
 	
 func _force_main_scene_load():
-	var played_scene = get_tree().current_scene
-	var root = get_node("/root")
+	var played_scene := get_tree().current_scene
+	var root := get_node("/root")
 	main = load(main_scene_filepath).instance()
 	root.remove_child(played_scene)
 	root.add_child(main)
 	
 	active_scene_container = main.get_node("ActiveSceneContainer")
 	if active_scene_container.get_child_count() > 0:
-		var scene_in_container = main.active_scene_container.get_child(0)
+		var scene_in_container: Node = main.active_scene_container.get_child(0)
 		if scene_in_container:
 			scene_in_container.queue_free()
 			if scene_in_container.is_inside_tree():
@@ -133,42 +130,6 @@ func _on_scene_loaded(scene):
 	
 	
 func _on_scene_unloaded(scene):
-	var scene_id = scene.id
+	var scene_id: String = scene.id
 	scene.queue_free()
 	emit_signal("manager_scene_unloaded", scene_id)
-
-
-class Utils extends Resource:
-	const SCENETYPE: Array = ['tscn.converted.scn', 'scn', 'tscn']
-	
-	func load_scene_instance(p_name: String, p_dir: String) -> Node:
-	    var file = File.new()
-	    var filepath = ''
-	    var scene = null
-
-	    for ext in SCENETYPE:
-	        filepath = '%s/%s.%s' % [p_dir, p_name, ext]
-
-	        if file.file_exists(filepath):
-	            scene = load(filepath).instance()
-	            break
-
-	    return scene
-		
-		
-	func get_scene_path(p_name: String, p_dir: String) -> Object:
-		var file = File.new()
-		var filepath = ''
-		var exists = false
-
-		for ext in SCENETYPE:
-			filepath = '%s/%s.%s' % [p_dir, p_name, ext]
-
-			if file.file_exists(filepath):
-				exists = true
-				break
-		
-		if not exists:
-			filepath = ''
-				
-		return filepath
