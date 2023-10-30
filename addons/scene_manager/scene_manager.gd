@@ -96,7 +96,7 @@ func change_scene(scene_filepath: String, scene_id: String = "", scene_params: D
 	
 	
 func _set_new_scene(resource: PackedScene) -> void:
-	var new_scene = resource.instantiate()
+	var new_scene := resource.instantiate()
 	if new_scene:
 		active_scene_container.add_child(new_scene)
 		
@@ -113,15 +113,15 @@ func _is_filepath_valid(filepath: String) -> bool:
 	
 	
 func _force_main_scene_load() -> void:
-	var played_scene = get_tree().current_scene
-	var root = get_node("/root")
+	var played_scene := get_tree().current_scene
+	var root := get_node("/root")
 	main = load(_main_scene_filepath).instantiate()
 	root.remove_child(played_scene)
 	root.add_child(main)
 	
 	active_scene_container = main.get_node("ActiveSceneContainer")
 	if active_scene_container.get_child_count() > 0:
-		var scene_in_container = main.active_scene_container.get_child(0)
+		var scene_in_container: Node = main.active_scene_container.get_child(0)
 		if scene_in_container:
 			scene_in_container.queue_free()
 			if scene_in_container.is_inside_tree():
