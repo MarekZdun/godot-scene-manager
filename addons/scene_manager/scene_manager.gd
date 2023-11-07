@@ -27,6 +27,8 @@ Usage:
 
 signal manager_scene_loaded(scene)
 signal manager_scene_unloaded(scene_id)
+signal manager_scene_load_started(scene_filepath)
+signal manager_scene_unload_started(scene)
 signal scene_transitioning(scene_filepath)
 signal main_scene_loaded()
 
@@ -55,6 +57,7 @@ func change_scene(scene_filepath: String, params: Dictionary = {}) -> void:
 	emit_signal("scene_transitioning", scene_filepath)
 	
 	if current_scene:
+		emit_signal("manager_scene_unload_started", current_scene)
 		current_scene.connect("scene_unloaded", self, "_on_scene_unloaded", [], CONNECT_ONESHOT)
 		current_scene.unload_scene()
 		if current_scene.is_inside_tree():
@@ -62,6 +65,7 @@ func change_scene(scene_filepath: String, params: Dictionary = {}) -> void:
 		current_scene = null
 	
 	if not scene_filepath.empty() and _is_scene_filepath_valid(scene_filepath):
+		emit_signal("manager_scene_load_started", scene_filepath)
 		next_scene_id_cashe = scene_filepath
 		scene_parameters_cache = params
 		
