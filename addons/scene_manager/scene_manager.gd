@@ -19,9 +19,9 @@ Usage:
 	
 	SceneManager.update_progress.connect(loading_screen._on_progress_changed)
 	
--to change scene, call change_scene(scene_filepath: String, scene_id: String = "", scene_params: Dictionary = {}) Ex:
+-to change scene, call change_scene(scene_filepath: String, scene_params: Dictionary = {}) Ex:
 	
-	SceneManager.change_scene("res://work/src/scenes/main_scenes/scene_1.tscn", "my_scene_1", {"difficulty": "easy"})
+	SceneManager.change_scene("res://work/src/scenes/main_scenes/scene_1.tscn", {"difficulty": "easy"})
 """
 
 
@@ -45,7 +45,6 @@ var loading_scene: bool = false:
 		set_process(loading_scene)
 var loading_scene_filepath: String
 var progress: Array
-var _loading_scene_id_cashe: String
 var _loading_scene_params_cache: Dictionary
 
 @onready var main: Node = get_node_or_null("/root/Main")
@@ -76,7 +75,7 @@ func _process(delta):
 		loading_scene = false
 
 
-func change_scene(scene_filepath: String, scene_id: String = "", scene_params: Dictionary = {}) -> void:
+func change_scene(scene_filepath: String, scene_params: Dictionary = {}) -> void:
 	scene_transitioning.emit(scene_filepath)
 	
 	if current_scene:
@@ -90,7 +89,6 @@ func change_scene(scene_filepath: String, scene_id: String = "", scene_params: D
 	if _is_filepath_valid(scene_filepath):
 		manager_scene_load_started.emit(scene_filepath)
 		loading_scene_filepath = scene_filepath
-		_loading_scene_id_cashe = scene_id
 		_loading_scene_params_cache = scene_params
 		
 		ResourceLoader.load_threaded_request(scene_filepath, "PackedScene")
@@ -105,7 +103,7 @@ func _set_new_scene(resource: PackedScene) -> void:
 		active_scene_container.add_child(new_scene)
 		
 		new_scene.scene_loaded.connect(_on_scene_loaded, CONNECT_ONE_SHOT)
-		new_scene.load_scene(_loading_scene_id_cashe, _loading_scene_params_cache)
+		new_scene.load_scene(_loading_scene_params_cache)
 		
 		current_scene = new_scene
 		

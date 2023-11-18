@@ -19,9 +19,9 @@ signal scene_unloaded(scene)
 @export var id: String = ""
 
 
-func load_scene(p_id: String, params: Dictionary) -> void:
-	if not p_id.is_empty():
-		id = p_id
+func load_scene(params: Dictionary) -> void:
+	if id.is_empty():
+		id = scene_file_path
 	
 	_start(params)
 	scene_loaded.emit(self)

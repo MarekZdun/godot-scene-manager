@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c7u344vhbep7r"]
 
-[ext_resource type="PackedScene" path="res://addons/scene_manager/proxy_scene.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://bpo2wlvxoblow" path="res://addons/scene_manager/proxy_scene.tscn" id="1"]
 [ext_resource type="Script" path="res://work/src/scenes/main_scenes/scene_2.gd" id="2"]
 
 [node name="Scene2" instance=ExtResource("1")]

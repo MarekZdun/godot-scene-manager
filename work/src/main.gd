@@ -19,12 +19,12 @@ func _ready():
 
 	await get_tree().create_timer(1).timeout
 
-	SceneManager.change_scene("res://work/src/scenes/main_scenes/scene_1.tscn", "my_scene_1", {"difficulty": "easy"})
+	SceneManager.change_scene("res://work/src/scenes/main_scenes/scene_1.tscn", {"difficulty": "easy"})
 
 	await get_tree().create_timer(2).timeout
 
 	loading_screen_root.show()
-	SceneManager.change_scene("res://work/src/scenes/main_scenes/scene_2.tscn", "my_scene_2", {"difficulty": "hard"})
+	SceneManager.change_scene("res://work/src/scenes/main_scenes/scene_2.tscn", {"difficulty": "hard"})
 
 	await get_tree().create_timer(2).timeout
 
