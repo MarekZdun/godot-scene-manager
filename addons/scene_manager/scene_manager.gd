@@ -35,7 +35,6 @@ signal main_scene_loaded()
 export(String, FILE) var main_scene_filepath: String = "res://src/main.tscn"
 
 var current_scene: Node = null
-var next_scene_id_cashe: String
 var scene_parameters_cache: Dictionary
 
 onready var main: Node = get_node_or_null("/root/Main")
@@ -64,9 +63,8 @@ func change_scene(scene_filepath: String, params: Dictionary = {}) -> void:
 			yield(current_scene, "tree_exited")
 		current_scene = null
 	
-	if not scene_filepath.empty() and _is_scene_filepath_valid(scene_filepath):
+	if _is_scene_filepath_valid(scene_filepath):
 		emit_signal("manager_scene_load_started", scene_filepath)
-		next_scene_id_cashe = scene_filepath
 		scene_parameters_cache = params
 		
 		if OS.has_feature("HTML5"):
@@ -85,7 +83,7 @@ func _set_new_scene(resource: PackedScene) -> void:
 		active_scene_container.add_child(next_scene)
 		
 		next_scene.connect("scene_loaded", self, "_on_scene_loaded", [], CONNECT_ONESHOT)
-		next_scene.load_scene(next_scene_id_cashe, scene_parameters_cache)
+		next_scene.load_scene(scene_parameters_cache)
 		
 		current_scene = next_scene
 		
@@ -93,8 +91,7 @@ func _set_new_scene(resource: PackedScene) -> void:
 func _is_scene_filepath_valid(filepath: String) -> bool:
 	var valid := false
 	var file := File.new()
-	
-	if file.file_exists(filepath):
+	if not filepath.empty() and file.file_exists(filepath):
 		valid = true
 		
 	return valid

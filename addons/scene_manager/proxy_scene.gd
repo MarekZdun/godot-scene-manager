@@ -15,12 +15,12 @@ Usage:
 signal scene_loaded(scene)
 signal scene_unloaded(scene)
 
+export var id: String
 
-onready var id: String = filename
 
-
-func load_scene(_id: String, params: Dictionary) -> void:
-	id = _id
+func load_scene(params: Dictionary) -> void:
+	if id.empty():
+		id = filename
 	
 	start(params)
 	emit_signal("scene_loaded", self)
