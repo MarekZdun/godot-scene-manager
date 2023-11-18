@@ -21,6 +21,6 @@ A manager whose task is to change scenes using a separate thread to load the new
 	
 	SceneManager.update_progress.connect(loading_screen._on_progress_changed)
 	
-➡️ to change scene, call change_scene(scene_filepath: String, scene_id: String = "", scene_params: Dictionary = {}) Ex:
+➡️ to change scene, call change_scene(scene_filepath: String, scene_params: Dictionary = {}) Ex:
 	
-	SceneManager.change_scene("res://work/src/scenes/main_scenes/scene_1.tscn", "my_scene_1", {"difficulty": "easy"})
+	SceneManager.change_scene("res://work/src/scenes/main_scenes/scene_1.tscn", {"difficulty": "easy"})
