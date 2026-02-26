@@ -1,6 +1,5 @@
 extends Node
 
-
 var current_scene: Node
 var loading_screen: Node = preload("res://loading_screen.tscn").instantiate()
 var level_one_file_path: String = "res://work/src/levels/level_1.tscn"

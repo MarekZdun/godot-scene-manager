@@ -1,13 +1,12 @@
 [gd_scene format=3 uid="uid://cbg28yybx55ab"]
 
-[ext_resource type="PackedScene" uid="uid://bpo2wlvxoblow" path="res://addons/scene_manager/proxy_scene.tscn" id="1_7353o"]
-[ext_resource type="Script" uid="uid://xl1r2ap8v117" path="res://work/src/levels/level_1.gd" id="2_gh4to"]
+[ext_resource type="Script" uid="uid://xl1r2ap8v117" path="res://work/src/levels/level.gd" id="2_gh4to"]
 [ext_resource type="Texture2D" uid="uid://ddc4xpwmr1b2e" path="res://1.bmp" id="3_7i44n"]
 
-[node name="Level1" unique_id=921641054 instance=ExtResource("1_7353o")]
+[node name="Level1" type="Node" unique_id=1669707742]
 script = ExtResource("2_gh4to")
 
-[node name="TextureRect" type="TextureRect" parent="." index="0" unique_id=170035119]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=170035119]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -19,13 +18,13 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_7i44n")
 
-[node name="ColorRect" type="ColorRect" parent="." index="1" unique_id=252717959]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=252717959]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color(0.352941, 0.352941, 0.352941, 1)
 
-[node name="CenterContainer" type="CenterContainer" parent="ColorRect" index="0" unique_id=986156054]
+[node name="CenterContainer" type="CenterContainer" parent="ColorRect" unique_id=986156054]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -33,9 +32,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/CenterContainer" index="0" unique_id=653845618]
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/CenterContainer" unique_id=653845618]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="ColorRect/CenterContainer/VBoxContainer" index="0" unique_id=1700401787]
+[node name="Label" type="Label" parent="ColorRect/CenterContainer/VBoxContainer" unique_id=1700401787]
 layout_mode = 2
 text = "LEVEL 1"

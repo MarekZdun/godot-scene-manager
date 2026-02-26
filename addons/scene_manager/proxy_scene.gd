@@ -1,15 +1,25 @@
-class_name ProxyScene 
+@abstract class_name ProxyScene 
 extends Node
 """
-Proxy scene
+ProxyScene - abstract base class for scenes used by SceneManager.
 
-Usage:
--right click on proxy_scene.tscn file in File System and choose New Inherited Scene
+DESCRIPTION:
+ProxyScene is a base class that SceneManager uses to manage various game scenes.
+Every scene that needs to be loaded/unloaded by SceneManager must inherit from
+this class. This includes:
+- Game levels
+- Character selection screens
+- Cutscenes
+- Any other scene type that needs dynamic loading
 
--right click on ProxyScene node (top one) and choose Extend Script to add additional funcionality to your scene
+The class provides the essential methods and signals that SceneManager relies on
+to control scene lifecycle.
 
--add functionality to _start() and _end() functions in inherited scene. These functions will be called 
-	when scene is loaded/unloaded respectively.
+USAGE:
+1. Create a new scene
+2. Add a root node of your choice (e.g., Node2D, Node3D, Control)
+3. Attach a new script to the root node
+4. Make the script extend `ProxyScene`
 """
 
 
@@ -32,9 +42,7 @@ func unload_scene() -> void:
 	scene_unloaded.emit(self)
 	
 	
-func _start(params: Dictionary) -> void:
-	pass	#can override this
+@abstract func _start(params: Dictionary) -> void
 	
 	
-func _end() -> void:
-	pass	#can override this
+@abstract func _end() -> void

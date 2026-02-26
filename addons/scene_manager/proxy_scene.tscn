@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bpo2wlvxoblow"]
-
-[ext_resource type="Script" path="res://addons/scene_manager/proxy_scene.gd" id="1"]
-
-[node name="ProxyScene" type="CanvasLayer"]
-script = ExtResource("1")

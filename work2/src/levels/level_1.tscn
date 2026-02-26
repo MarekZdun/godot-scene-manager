@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://b7hvbx740wb50"]
 
-[ext_resource type="PackedScene" uid="uid://bpo2wlvxoblow" path="res://addons/scene_manager/proxy_scene.tscn" id="1_j87c2"]
 [ext_resource type="Script" uid="uid://c7mohxdgu2w46" path="res://work2/src/levels/level.gd" id="2_7are8"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_e6n7p"]
@@ -20,14 +19,14 @@ tonemap_mode = 2
 [sub_resource type="BoxMesh" id="BoxMesh_pb40f"]
 material = SubResource("StandardMaterial3D_pb40f")
 
-[node name="Level1" unique_id=619521484 instance=ExtResource("1_j87c2")]
+[node name="Level1" type="CanvasLayer" unique_id=619521484]
 script = ExtResource("2_7are8")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="0" unique_id=1200184179]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1200184179]
 environment = SubResource("Environment_iexpg")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1" unique_id=1944369245]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1944369245]
 mesh = SubResource("BoxMesh_pb40f")
 
-[node name="Camera3D" type="Camera3D" parent="." index="2" unique_id=2139118208]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=2139118208]
 transform = Transform3D(0.87758255, -0.22984886, 0.42073548, 0, 0.87758255, 0.47942555, -0.47942555, -0.4207355, 0.77015114, 1.682942, 1.9177022, 3.0806046)
