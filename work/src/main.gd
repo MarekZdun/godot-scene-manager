@@ -3,8 +3,8 @@ extends Node
 
 var current_scene: Node
 var loading_screen: Node = preload("res://loading_screen.tscn").instantiate()
-var level_one_file_path: String = "res://work/src/scenes/levels/level_1.tscn"
-var level_two_file_path: String = "res://work/src/scenes/levels/level_2.tscn"
+var level_one_file_path: String = "res://work/src/levels/level_1.tscn"
+var level_two_file_path: String = "res://work/src/levels/level_2.tscn"
 
 @onready var loading_screen_root: Control = loading_screen.get_child(0)
 @onready var active_scene_container = $ActiveSceneContainer

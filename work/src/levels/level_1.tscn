@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cbg28yybx55ab"]
 
 [ext_resource type="PackedScene" uid="uid://bpo2wlvxoblow" path="res://addons/scene_manager/proxy_scene.tscn" id="1_7353o"]
-[ext_resource type="Script" uid="uid://xl1r2ap8v117" path="res://work/src/scenes/levels/level_1.gd" id="2_gh4to"]
+[ext_resource type="Script" uid="uid://xl1r2ap8v117" path="res://work/src/levels/level_1.gd" id="2_gh4to"]
 [ext_resource type="Texture2D" uid="uid://ddc4xpwmr1b2e" path="res://1.bmp" id="3_7i44n"]
 
 [node name="Level1" unique_id=921641054 instance=ExtResource("1_7353o")]
