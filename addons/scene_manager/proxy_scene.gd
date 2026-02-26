@@ -1,5 +1,5 @@
-class_name ProxyScene
-extends CanvasLayer
+class_name ProxyScene 
+extends Node
 """
 Proxy scene
 

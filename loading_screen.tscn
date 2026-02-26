@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://7r2w20350jua"]
+
+[ext_resource type="Script" uid="uid://dotryrl73xoyj" path="res://loading_screen.gd" id="1_mggpi"]
+
+[node name="LoadingScreen" type="CanvasLayer" unique_id=834108648]
+script = ExtResource("1_mggpi")
+
+[node name="Root" type="ColorRect" parent="." unique_id=2124111451]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="Root" unique_id=576418551]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Root/CenterContainer" unique_id=1611096224]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Root/CenterContainer/VBoxContainer" unique_id=63014124]
+layout_mode = 2
+text = "Loading..."
+
+[node name="ProgressBar" type="ProgressBar" parent="Root/CenterContainer/VBoxContainer" unique_id=639580953]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 20)
+layout_mode = 2
+size_flags_vertical = 1
