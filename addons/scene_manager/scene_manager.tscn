@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cfnqfnsk30goy"]
+[gd_scene format=3 uid="uid://cfnqfnsk30goy"]
 
-[ext_resource type="Script" path="res://addons/scene_manager/scene_manager.gd" id="1"]
+[ext_resource type="Script" uid="uid://d1ggi0x2q7amu" path="res://addons/scene_manager/scene_manager.gd" id="1"]
 
-[node name="SceneManager" type="Node"]
+[node name="SceneManager" type="Node" unique_id=497753607]
 process_mode = 3
 script = ExtResource("1")
-_main_scene_filepath = "res://work/src/main.tscn"
+_main_scene_filepath = "uid://cdyi023mgl5xw"

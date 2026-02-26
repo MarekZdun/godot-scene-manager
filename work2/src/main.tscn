@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cdyi023mgl5xw"]
+
+[ext_resource type="Script" uid="uid://dlomltuf26p8x" path="res://work2/src/main.gd" id="1_m4a36"]
+
+[node name="Main" type="Node" unique_id=157081363]
+script = ExtResource("1_m4a36")
+
+[node name="ActiveSceneContainer" type="Node" parent="." unique_id=1330029166]
