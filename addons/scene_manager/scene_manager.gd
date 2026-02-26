@@ -26,31 +26,31 @@ SIGNALS - Monitor scene lifecycle:
 
 USAGE:
 1. Setup main scene structure:
-   - Create a main scene (e.g., `main.tscn`)
-   - Add a root node named "Main"
-   - Add a child node to Main named "ActiveSceneContainer"
+	- Create a main scene (e.g., `main.tscn`)
+	- Add a root node named "Main"
+	- Add a child node to Main named "ActiveSceneContainer"
 
 2. Create scenes to be managed:
-   - Create a new scene (any root type: Node2D, Node3D, Control)
-   - Attach a script extending `ProxyScene`
-   - Implement required `_start(params)` and `_end()` methods
+	- Create a new scene (any root type: Node2D, Node3D, Control)
+	- Attach a script extending `ProxyScene`
+	- Implement required `_start(params)` and `_end()` methods
 
 3. Connect to SceneManager signals (example in a loading screen):
-   SceneManager.update_progress.connect(_on_progress_changed)
-   SceneManager.manager_scene_loaded.connect(_on_scene_ready)
-   SceneManager.manager_scene_unloaded.connect(_on_scene_gone)
+	SceneManager.update_progress.connect(_on_progress_changed)
+	SceneManager.manager_scene_loaded.connect(_on_scene_ready)
+	SceneManager.manager_scene_unloaded.connect(_on_scene_gone)
 
-    Change scenes:
-    SceneManager.change_scene("res://levels/level_1.tscn", {"difficulty": "easy"})
+4. Change scenes:
+	SceneManager.change_scene("res://levels/level_1.tscn", {"difficulty": "easy"})
 
-    Optional: Force main scene load for testing with F6:
-        Enable force_main_scene_to_load in inspector
-        Set _main_scene_filepath to your main scene
-        When testing any scene with F6 (e.g., a level scene), the following happens:
-	   - The tested scene is detached from the root
-	   - The main scene is loaded and becomes the new root
-	   - The tested scene is reparented to `ActiveSceneContainer` inside the main scene
-	   - This allows testing individual levels while maintaining the proper scene structure
+5. Optional: Force main scene load for testing with F6:
+	Enable force_main_scene_to_load in inspector
+	Set _main_scene_filepath to your main scene
+	When testing any scene with F6 (e.g., a level scene), the following happens:
+		- The tested scene is detached from the root
+		- The main scene is loaded and becomes the new root
+		- The tested scene is reparented to `ActiveSceneContainer` inside the main scene
+		- This allows testing individual levels while maintaining the proper scene structure
 """
 
 
