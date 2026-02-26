@@ -2,7 +2,7 @@ extends Node
 """
 A manager whose task is to change scenes using a separate thread to load the new scene.
 (c) Pioneer Games
-v 1.2
+v 1.3
 
 Usage:
 -open the SceneManager scene and select the file path to the main scene file for 
@@ -36,6 +36,7 @@ signal update_progress(progress)
 const SIMULATED_DELAY_MS = 32
 const OK_LOADING_STATUSES = [ResourceLoader.THREAD_LOAD_IN_PROGRESS, ResourceLoader.THREAD_LOAD_LOADED]
 
+@export var force_main_scene_to_load: bool = false
 @export_file var _main_scene_filepath: String = "res://src/main.tscn"
 
 var current_scene: Node = null
@@ -54,12 +55,18 @@ var _loading_scene_params_cache: Dictionary
 func _ready():
 	loading_scene = false
 	
-	if not main:
+	if force_main_scene_to_load and not main:
 		_force_main_scene_load.call_deferred()
 		await main_scene_loaded
 	
+	if active_scene_container == null:
+		push_warning("ActiveSceneContainer not found! Scene system may not work correctly.")
+		return
+	
 	if active_scene_container.get_child_count() > 0:
 		current_scene = active_scene_container.get_child(0)
+	else:
+		current_scene = null
 		
 		
 func _process(delta):
@@ -117,11 +124,27 @@ func _is_filepath_valid(filepath: String) -> bool:
 func _force_main_scene_load() -> void:
 	var played_scene := get_tree().current_scene
 	var root := get_node("/root")
-	main = load(_main_scene_filepath).instantiate()
+	
+	if not FileAccess.file_exists(_main_scene_filepath):
+			push_error("Main scene file not found: ", _main_scene_filepath)
+			return
+	
+	var main_scene_resource := load(_main_scene_filepath)
+	if main_scene_resource == null:
+		push_error("Failed to load main scene: ", _main_scene_filepath)
+		return
+		
+	main = main_scene_resource.instantiate()
 	root.remove_child(played_scene)
 	root.add_child(main)
+
+	active_scene_container = main.get_node_or_null("ActiveSceneContainer")
+	if active_scene_container == null:
+		push_error("ActiveSceneContainer not found in main scene!")
+		active_scene_container = Node.new()
+		active_scene_container.name = "ActiveSceneContainer"
+		main.add_child(active_scene_container)
 	
-	active_scene_container = main.get_node("ActiveSceneContainer")
 	if active_scene_container.get_child_count() > 0:
 		var scene_in_container: Node = main.active_scene_container.get_child(0)
 		if scene_in_container:
