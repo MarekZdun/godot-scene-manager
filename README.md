@@ -40,14 +40,16 @@ system for games with multiple levels.
 	- Implement required `_start(params)` and `_end()` methods
 
 3. Connect to SceneManager signals (example in a loading screen):
+```gdscript
 	SceneManager.update_progress.connect(_on_progress_changed)
 	SceneManager.manager_scene_loaded.connect(_on_scene_ready)
 	SceneManager.manager_scene_unloaded.connect(_on_scene_gone)
-
-4. Change scenes:
+```
+5. Change scenes:
+```gdscript
 	SceneManager.change_scene("res://levels/level_1.tscn", {"difficulty": "easy"})
-
-5. Optional: Force main scene load for testing with F6:
+```
+7. Optional: Force main scene load for testing with F6:
 	- Enable force_main_scene_to_load in inspector
 	- Set _main_scene_filepath to your main scene
 	- When testing any scene with F6 (e.g., a level scene), the following happens:
@@ -55,5 +57,6 @@ system for games with multiple levels.
 		- The main scene is loaded and becomes the new root
 		- The tested scene is reparented to `ActiveSceneContainer` inside the main scene
 		- This allows testing individual levels while maintaining the proper scene structure
+
 
 
