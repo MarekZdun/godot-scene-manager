@@ -4,8 +4,8 @@ A Scene Manager for [Godot Engine](https://godotengine.org/).<br />
 Looking for a Godot 3.5 version? [See godot 3.5 branch](https://github.com/MarekZdun/godot-scene-manager/tree/3.5).
 
 ## 📄 Features
-SceneManager - Manages asynchronous scene loading/unloading with ProxyScene integration.
-(c) Pioneer Games
+SceneManager - Manages asynchronous scene loading/unloading with ProxyScene integration.  
+(c) Pioneer Games  
 v 1.4
 
 ## 📄 Description
@@ -57,6 +57,7 @@ system for games with multiple levels.
 		- The main scene is loaded and becomes the new root
 		- The tested scene is reparented to `ActiveSceneContainer` inside the main scene
 		- This allows testing individual levels while maintaining the proper scene structure
+
 
 
 
