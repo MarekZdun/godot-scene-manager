@@ -68,7 +68,7 @@ const OK_LOADING_STATUSES = [ResourceLoader.THREAD_LOAD_IN_PROGRESS, ResourceLoa
 @export var force_main_scene_to_load: bool = false
 @export_file var _main_scene_filepath: String = "res://src/main.tscn"
 
-var current_scene: Node = null
+var current_scene: ProxyScene = null
 var loading_scene: bool = false:
 	set(value):
 		loading_scene = value
@@ -114,7 +114,7 @@ func _process(delta):
 func change_scene(scene_filepath: String, scene_params: Dictionary = {}) -> void:
 	scene_transitioning.emit(scene_filepath)
 	
-	if current_scene:
+	if current_scene and is_instance_valid(current_scene):
 		manager_scene_unload_started.emit(current_scene)
 		current_scene.scene_unloaded.connect(_on_scene_unloaded, CONNECT_ONE_SHOT)
 		current_scene.unload_scene()
@@ -134,7 +134,7 @@ func change_scene(scene_filepath: String, scene_params: Dictionary = {}) -> void
 	
 	
 func _set_new_scene(resource: PackedScene) -> void:
-	var new_scene := resource.instantiate()
+	var new_scene: ProxyScene = resource.instantiate()
 	if new_scene:
 		active_scene_container.add_child(new_scene)
 		
