@@ -66,7 +66,7 @@ const SIMULATED_DELAY_MS = 32
 const OK_LOADING_STATUSES = [ResourceLoader.THREAD_LOAD_IN_PROGRESS, ResourceLoader.THREAD_LOAD_LOADED]
 
 @export var force_main_scene_to_load: bool = false
-@export_file var _main_scene_filepath: String = "res://src/main.tscn"
+@export_file_path("*.tscn") var _main_scene_filepath: String = "res://main.tscn"
 
 var current_scene: ProxyScene = null
 var loading_scene: bool = false:

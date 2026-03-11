@@ -5,4 +5,3 @@
 [node name="SceneManager" type="Node" unique_id=497753607]
 process_mode = 3
 script = ExtResource("1")
-_main_scene_filepath = "uid://cdyi023mgl5xw"
