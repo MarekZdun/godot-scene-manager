@@ -111,8 +111,9 @@ func _process(delta):
 		loading_scene = false
 
 
-func change_scene(scene_filepath: String, scene_params: Dictionary = {}) -> void:
-	scene_transitioning.emit(scene_filepath)
+func change_scene(scene_filepath: String, scene_params: Dictionary = {}, emit_transition_signal: bool = true) -> void:
+	if emit_transition_signal:
+		scene_transitioning.emit(scene_filepath)
 	
 	if current_scene and is_instance_valid(current_scene):
 		manager_scene_unload_started.emit(current_scene)
